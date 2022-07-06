@@ -9,4 +9,8 @@ export class CreateTableDto {
         example: 1,
       })
     number: number;
+    name: String;
+    duration: number;
+    created_at: Date;
+    updated_at: Date;
 }

@@ -1,4 +1,7 @@
 export class Table {
-    id: string;
-    number: number
+    id: String;
+    name: String;
+    duration: number;
+    created_at: Date;
+    updated_at: Date;
 }
