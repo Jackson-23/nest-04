@@ -10,16 +10,16 @@ export class CreateUserDto {
       })
     name: string;
 
-    @IsNumber()
-    @IsPositive()
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty({
         description: 'e-mail para contato',
         example: "example@example.com.br",
       })
     email: string;
 
-    @IsNumber()
-    @IsPositive()
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty({
         description: 'Senha de acesso',
       })
