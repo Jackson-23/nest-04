@@ -21,7 +21,7 @@ export class TableController {
     @ApiOperation({
         summary: 'Item por ID'
     })
-    findById(@Param() id: string){
+    findById(@Param('id') id: string){
         return this.tableService.findById(id);
     }
 
