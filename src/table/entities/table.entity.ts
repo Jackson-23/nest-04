@@ -1,4 +1,5 @@
 export class Table {
-    id: string;
-    number: number
+    id: String;
+    name: String;
+    duration: number;
 }
