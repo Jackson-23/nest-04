@@ -17,3 +17,13 @@ model Item {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model User {
+    id String @id @default(uuid())
+    name String
+    email String @unique
+    password String
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
