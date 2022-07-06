@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TableModule } from './table/table.module';
+import { TableModule } from './itens/table.module';
 import { UserModule } from './users/user.module';
 
 @Module({
