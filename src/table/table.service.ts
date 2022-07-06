@@ -1,7 +1,8 @@
-import {Injectable} from '@nestjs/common';
+import {Get, Injectable, Param} from '@nestjs/common';
 import {CreateTableDto} from './dto/create-table.dto';
 import { Table } from './entities/table.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Injectable()
 export class TableService {
@@ -10,12 +11,12 @@ export class TableService {
         return this.prisma.item.findMany();
     }
 
+    findById(id: string){
+        return this.prisma.item.findUnique({ where: {id}});
+    }
+
     create(createTableDto: CreateTableDto) {
-        const table: Table = {id: 'random_id', ...createTableDto };
-
-        //this.prisma.item.create(table); 
-
-        return table;
+        return this.prisma.item.create({ data: createTableDto }); 
     }
 
 }
