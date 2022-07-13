@@ -30,8 +30,8 @@ export class PedidoController {
     @ApiOperation({
         summary: 'Cria um novo pedido'
     })
-    create(@Body() createPedidoDto: CreatePedidoDto): Promise<Pedido>{
-        return this.pedidoService.create(createPedidoDto);
+    create(@Body() dto: CreatePedidoDto): Promise<Pedido>{
+        return this.pedidoService.create(dto);
     }
 
     @Delete(':id')

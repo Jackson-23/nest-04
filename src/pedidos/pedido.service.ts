@@ -1,6 +1,6 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
 import {CreatePedidoDto} from './dto/create-pedido.dto';
-import { Pedido as Pedido } from './entities/pedido.entity';
+import { Pedido } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
@@ -11,7 +11,7 @@ export class PedidoService {
 
     constructor(private readonly prisma: PrismaService){}
 
-    //Buscar todos os itens
+    //Buscar todos os Pedidos
     findAll(): Promise<Pedido[]>{
         return this.prisma.pedido.findMany();
     }

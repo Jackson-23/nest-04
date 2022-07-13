@@ -4,7 +4,7 @@ import { PedidoService } from './pedido.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-    imports: [PrismaModule],
+    imports: [PrismaModule, PedidoModule],
     controllers: [PedidoController],
     providers: [PedidoService],
 })

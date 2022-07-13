@@ -1,20 +1,18 @@
 import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
+import { Item } from "@prisma/client";
 
 export class CreatePedidoDto {
     @IsString()
     @IsNotEmpty()
-    @ApiProperty({
-        description: 'NO',
-        example: "Filme, jogo, catalogo, afins",
-      })
-    name: string;
+    @ApiProperty({})
+    UserId: string;
 
-    @IsNumber()
-    @IsPositive()
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty({
-        description: 'Tempo de duração em minutos',
-        example: 180,
+        description: 'Itens a ser adicionados ao pedido',
+        example: 'TV, Caneca, Cabo, Camisa etc..',
       })
-    duration: number;
+    items: Item;
 }
