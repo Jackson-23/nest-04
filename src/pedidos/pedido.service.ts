@@ -1,23 +1,23 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
-import {CreateTableDto} from './dto/create-pedido.dto';
-import { Table } from './entities/table.entity';
+import {CreatePedidoDto} from './dto/create-pedido.dto';
+import { Pedido as Pedido } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiOperation } from '@nestjs/swagger';
-import { UpdateTableDto } from './dto/update-pedido.dto';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Injectable()
-export class TableService {
+export class PedidoService {
     
 
     constructor(private readonly prisma: PrismaService){}
 
     //Buscar todos os itens
-    findAll(): Promise<Table[]>{
+    findAll(): Promise<Pedido[]>{
         return this.prisma.pedido.findMany();
     }
 
     //Busca Pedido por Id com tratamento de erro
-    async findByIdTry(id: string): Promise <Table>{
+    async findByIdTry(id: string): Promise <Pedido>{
         const record = await this.prisma.pedido.findUnique({ where: {id}});
         if(!record){
             throw new NotFoundException("Register " + id + " not found");
@@ -31,7 +31,7 @@ export class TableService {
     }
 
     //Criar novo Pedido
-    create(dto: CreateTableDto) {
+    create(dto: CreatePedidoDto) {
         return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
     }
 
@@ -42,10 +42,10 @@ export class TableService {
     }
 
     //Alterar dados de Pedido por ID
-    async update(id: string, dto: UpdateTableDto) {
+    async update(id: string, dto: UpdatePedidoDto) {
         await this.findByIdTry(id);
 
-        //const data: Partial<Table> = {...dto}
+        //const data: Partial<Pedido> = {...dto}
         return this.prisma.pedido.update({where: {id}, data: dto}).catch(this.handleError);
     }
 
