@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
-import { TableService } from './table.service';
-import { CreateTableDto } from './dto/create-table.dto';
+import { TableService } from './pedido.service';
+import { CreateTableDto } from './dto/create-pedido.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Table } from './entities/table.entity';
-import { UpdateTableDto } from './dto/update-table.dto';
+import { UpdateTableDto } from './dto/update-pedido.dto';
 
 @ApiTags('table')
 @Controller('table')
@@ -20,7 +20,7 @@ export class TableController {
 
     @Get(':id')
     @ApiOperation({
-        summary: 'Item por ID'
+        summary: 'pedido por ID'
     })
     findById(@Param('id') id: string){
         return this.tableService.findById(id);
@@ -28,7 +28,7 @@ export class TableController {
 
     @Post()
     @ApiOperation({
-        summary: 'Cria um novo item'
+        summary: 'Cria um novo pedido'
     })
     create(@Body() createTableDto: CreateTableDto): Promise<Table>{
         return this.tableService.create(createTableDto);
@@ -36,7 +36,7 @@ export class TableController {
 
     @Delete(':id')
     @ApiOperation({
-        summary: 'Deletar item'
+        summary: 'Deletar pedido'
     })
     delete(@Param(':id') id: string) {
         return this.tableService.delete(id)
@@ -44,7 +44,7 @@ export class TableController {
 
     @Patch(':id')
     @ApiOperation({
-        summary: 'Atualizar Item'
+        summary: 'Atualizar pedido'
     })
     update(@Param(':id') id: string, @Body() dto: UpdateTableDto): Promise<Table>{
         return this.tableService.update(id, dto)
