@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
-import { TableService } from './table.service';
-import { CreateTableDto } from './dto/create-table.dto';
+import { TableService } from './item.service';
+import { CreateTableDto } from './dto/create-item.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Table } from './entities/table.entity';
-import { UpdateTableDto } from './dto/update-table.dto';
+import { UpdateTableDto } from './dto/update-item.dto';
 
 @ApiTags('table')
 @Controller('table')

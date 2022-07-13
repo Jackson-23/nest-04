@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { TableController } from './table.controller';
-import { TableService } from './table.service';
+import { TableController } from './pedido.controller';
+import { TableService } from './pedido.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({

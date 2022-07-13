@@ -1,9 +1,9 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
-import {CreateTableDto} from './dto/create-table.dto';
+import {CreateTableDto} from './dto/create-item.dto';
 import { Table } from './entities/table.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiOperation } from '@nestjs/swagger';
-import { UpdateTableDto } from './dto/update-table.dto';
+import { UpdateTableDto } from './dto/update-item.dto';
 
 @Injectable()
 export class TableService {

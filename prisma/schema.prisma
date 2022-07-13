@@ -27,3 +27,10 @@ model User {
     updated_at DateTime @updatedAt
 }
 
+model Pedido {
+  id String @id @default(uuid())
+  number String
+  items_quantity Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
