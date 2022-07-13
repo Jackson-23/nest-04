@@ -13,40 +13,40 @@ export class TableService {
 
     //Buscar todos os itens
     findAll(): Promise<Table[]>{
-        return this.prisma.item.findMany();
+        return this.prisma.pedido.findMany();
     }
 
-    //Busca Item por Id com tratamento de erro
+    //Busca Pedido por Id com tratamento de erro
     async findByIdTry(id: string): Promise <Table>{
-        const record = await this.prisma.item.findUnique({ where: {id}});
+        const record = await this.prisma.pedido.findUnique({ where: {id}});
         if(!record){
             throw new NotFoundException("Register " + id + " not found");
         }
         return record;
     }
 
-    //Buscar Item por ID
+    //Buscar Pedido por ID
     findById(id: string){
         return this.findByIdTry(id);
     }
 
-    //Criar novo Item
+    //Criar novo Pedido
     create(dto: CreateTableDto) {
-        return this.prisma.item.create({ data: dto }).catch(this.handleError);
+        return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
     }
 
-    //Deletar item por ID
+    //Deletar Pedido por ID
     async delete(id: string) {
         await this.findByIdTry(id);
-        return this.prisma.item.delete({where: {id}});
+        return this.prisma.pedido.delete({where: {id}});
     }
 
-    //Alterar dados de item por ID
+    //Alterar dados de Pedido por ID
     async update(id: string, dto: UpdateTableDto) {
         await this.findByIdTry(id);
 
         //const data: Partial<Table> = {...dto}
-        return this.prisma.item.update({where: {id}, data: dto}).catch(this.handleError);
+        return this.prisma.pedido.update({where: {id}, data: dto}).catch(this.handleError);
     }
 
 
