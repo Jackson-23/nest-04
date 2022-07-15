@@ -1,12 +1,12 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
 import {CreateTableDto} from './dto/create-pedido.dto';
-import { Table } from './entities/table.entity';
+import { Table } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiOperation } from '@nestjs/swagger';
-import { UpdateTableDto } from './dto/update-pedido.dto';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Injectable()
-export class TableService {
+export class PedidoService {
     
 
     constructor(private readonly prisma: PrismaService){}
@@ -42,7 +42,7 @@ export class TableService {
     }
 
     //Alterar dados de Pedido por ID
-    async update(id: string, dto: UpdateTableDto) {
+    async update(id: string, dto: UpdatePedidoDto) {
         await this.findByIdTry(id);
 
         //const data: Partial<Table> = {...dto}

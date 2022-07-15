@@ -1,5 +1,5 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
-import {CreateTableDto} from './dto/create-item.dto';
+import {CreateItemDto} from './dto/create-item.dto';
 import { Table } from './entities/table.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiOperation } from '@nestjs/swagger';
@@ -31,7 +31,7 @@ export class TableService {
     }
 
     //Criar novo Item
-    create(dto: CreateTableDto) {
+    create(dto: CreateItemDto) {
         return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
     }
 

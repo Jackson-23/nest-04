@@ -1,21 +1,21 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
-import { TableService } from './pedido.service';
-import { CreateTableDto } from './dto/create-pedido.dto';
+import { PedidoService } from './pedido.service';
+import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Table } from './entities/table.entity';
-import { UpdateTableDto } from './dto/update-pedido.dto';
+import { Pedido } from './entities/pedido.entity';
+import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
-@ApiTags('table')
-@Controller('table')
-export class TableController {
-    constructor(private tableService: TableService) {}
+@ApiTags('pedido')
+@Controller('pedido')
+export class PedidoController {
+    constructor(private pedidoService: PedidoService) {}
 
     @Get()
     @ApiOperation({
         summary: 'Lista todos os itens'
     })
-    findAll(): Promise<Table[]> {
-        return this.tableService.findAll();
+    findAll(): Promise<Pedido[]> {
+        return this.pedidoService.findAll();
     }
 
     @Get(':id')
@@ -23,15 +23,15 @@ export class TableController {
         summary: 'pedido por ID'
     })
     findById(@Param('id') id: string){
-        return this.tableService.findById(id);
+        return this.pedidoService.findById(id);
     }
 
     @Post()
     @ApiOperation({
         summary: 'Cria um novo pedido'
     })
-    create(@Body() createTableDto: CreateTableDto): Promise<Table>{
-        return this.tableService.create(createTableDto);
+    create(@Body() createPedidoDto: CreatePedidoDto): Promise<Pedido>{
+        return this.pedidoService.create(createPedidoDto);
     }
 
     @Delete(':id')
@@ -39,14 +39,14 @@ export class TableController {
         summary: 'Deletar pedido'
     })
     delete(@Param(':id') id: string) {
-        return this.tableService.delete(id)
+        return this.pedidoService.delete(id)
     }
 
     @Patch(':id')
     @ApiOperation({
         summary: 'Atualizar pedido'
     })
-    update(@Param(':id') id: string, @Body() dto: UpdateTableDto): Promise<Table>{
-        return this.tableService.update(id, dto)
+    update(@Param(':id') id: string, @Body() dto: UpdatePedidoDto): Promise<Pedido>{
+        return this.pedidoService.update(id, dto)
     }
 }

@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateTableDto {
+export class CreatePedidoDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({

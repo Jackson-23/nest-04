@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
 import { TableService } from './item.service';
-import { CreateTableDto } from './dto/create-item.dto';
+import { CreateItemDto } from './dto/create-item.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Table } from './entities/table.entity';
 import { UpdateTableDto } from './dto/update-item.dto';
 
-@ApiTags('table')
-@Controller('table')
+@ApiTags('item')
+@Controller('item')
 export class TableController {
     constructor(private tableService: TableService) {}
 
@@ -30,7 +30,7 @@ export class TableController {
     @ApiOperation({
         summary: 'Cria um novo item'
     })
-    create(@Body() createTableDto: CreateTableDto): Promise<Table>{
+    create(@Body() createTableDto: CreateItemDto): Promise<Table>{
         return this.tableService.create(createTableDto);
     }
 
