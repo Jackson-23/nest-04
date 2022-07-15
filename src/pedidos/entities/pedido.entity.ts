@@ -1,5 +1,7 @@
+import { Item } from "@prisma/client";
+
 export class Pedido {
     id: String;
-    name: String;
-    duration: number;
+    userId: String;
+    items: Item;
 }

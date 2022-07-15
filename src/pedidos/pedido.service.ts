@@ -1,6 +1,6 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
-import {CreateTableDto} from './dto/create-pedido.dto';
-import { Table } from './entities/pedido.entity';
+import {CreatePedidoDto} from './dto/create-pedido.dto';
+import { Pedido } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
@@ -11,13 +11,13 @@ export class PedidoService {
 
     constructor(private readonly prisma: PrismaService){}
 
-    //Buscar todos os itens
-    findAll(): Promise<Table[]>{
+    //Buscar todos os Pedidos
+    findAll(): Promise<Pedido[]>{
         return this.prisma.pedido.findMany();
     }
 
     //Busca Pedido por Id com tratamento de erro
-    async findByIdTry(id: string): Promise <Table>{
+    async findByIdTry(id: string): Promise <Pedido>{
         const record = await this.prisma.pedido.findUnique({ where: {id}});
         if(!record){
             throw new NotFoundException("Register " + id + " not found");
@@ -31,7 +31,7 @@ export class PedidoService {
     }
 
     //Criar novo Pedido
-    create(dto: CreateTableDto) {
+    create(dto: CreatePedidoDto) {
         return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
     }
 
@@ -45,7 +45,7 @@ export class PedidoService {
     async update(id: string, dto: UpdatePedidoDto) {
         await this.findByIdTry(id);
 
-        //const data: Partial<Table> = {...dto}
+        //const data: Partial<Pedido> = {...dto}
         return this.prisma.pedido.update({where: {id}, data: dto}).catch(this.handleError);
     }
 
