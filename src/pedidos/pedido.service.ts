@@ -13,23 +13,56 @@ export class PedidoService {
     constructor(private readonly prisma: PrismaService){}
 
     //Buscar todos os Pedidos
-    findAll(): Promise<Pedido[]>{
-        return this.prisma.pedido.findMany();
+    findAll()/*: Promise<Pedido[]>*/{
+        return this.prisma.pedido.findMany({
+            select:{
+                id: true,
+                user: {
+                    select:{
+                        name: true,
+                    },
+                },
+                items:{
+                    select:{
+                        name: true,
+                    },
+                },
+            }
+        });
+    }
+
+
+    
+    //Buscar Pedido por ID
+    findById(id: string){
+        return this.findByIdTry(id);
     }
 
     //Busca Pedido por Id com tratamento de erro
-    async findByIdTry(id: string): Promise <Pedido>{
-        const record = await this.prisma.pedido.findUnique({ where: {id}});
+    async findByIdTry(id: string)/*: Promise <Pedido>*/{
+        const record = await this.prisma.pedido.findUnique({
+            where: {id},
+            include: {
+                user:{
+                    select: {
+                        name: true,
+                    }
+                },
+                items:{
+                    select:{
+                        id: true,
+                        name: true,
+                    }
+                }
+            } 
+        });
         if(!record){
             throw new NotFoundException("Register " + id + " not found");
         }
         return record;
     }
 
-    //Buscar Pedido por ID
-    findById(id: string){
-        return this.findByIdTry(id);
-    }
+    
 
     //Criar novo Pedido
     create(dto: CreatePedidoDto) {

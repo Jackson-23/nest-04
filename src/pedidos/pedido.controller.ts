@@ -13,7 +13,7 @@ export class PedidoController {
     @ApiOperation({
         summary: 'Lista todos os pedidos'
     })
-    findAll(): Promise<Pedido[]> {
+    findAll()/*: Promise<Pedido[]>*/ {
         return this.pedidoService.findAll();
     }
 
