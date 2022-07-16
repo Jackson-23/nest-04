@@ -3,6 +3,7 @@ import {CreateItemDto} from './dto/create-item.dto';
 import { Item } from './entities/item.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { handleError } from 'src/utils/handle-error.util';
 
 @Injectable()
 export class ItemService {
@@ -31,7 +32,7 @@ export class ItemService {
 
     //Criar novo Item
     create(dto: CreateItemDto) {
-        return this.prisma.item.create({ data: dto }).catch(this.handleError);
+        return this.prisma.item.create({ data: dto }).catch(handleError);
     }
 
     //Deletar item por ID
@@ -45,13 +46,8 @@ export class ItemService {
         await this.findByIdTry(id);
 
         //const data: Partial<Item> = {...dto}
-        return this.prisma.item.update({where: {id}, data: dto}).catch(this.handleError);
+        return this.prisma.item.update({where: {id}, data: dto}).catch(handleError);
     }
 
 
-
-    handleError(error: Error): undefined{
-        console.log(error.message);
-        throw new UnprocessableEntityException(error.message);
-    }
 }

@@ -1,14 +1,22 @@
-import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
-import { Prisma } from "@prisma/client";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 
 export class CreatePedidoDto {
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty({
-        description: 'Itens a ser adicionados ao pedido',
-        example: 'TV, Caneca, Cabo, Camisa etc..',
-      })
-    items: string;
+    
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Id do usuário relacionado ao pedido',
+    example: '9e10135b-d9b2-4e0e-ba16-aeabee49771d'
+  })
+  userId: string;
+
+
+  @IsUUID(undefined, {each: true})
+  @ApiProperty({
+      description: 'Id de cada Item ser colocado no pedido',
+      example: '38498855-23eb-41d0-812c-a9fd49ecf2ba',
+    })
+  items: string[];
 }

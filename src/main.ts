@@ -13,7 +13,9 @@ async function bootstrap() {
     .setDescription('Not')
     .setVersion('1.0.0')
     .addTag('status')
-    .addTag('table')
+    .addTag('user')
+    .addTag('pedido')
+    .addTag('item')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

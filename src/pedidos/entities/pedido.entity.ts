@@ -4,7 +4,7 @@ import { User } from "src/users/entities/user.entity"
 export class Pedido {
     id?: string
     user?: User
-    itens?: Item[]
+    items?: Item[]
     created_at?: Date
     updated_at?: Date
 }

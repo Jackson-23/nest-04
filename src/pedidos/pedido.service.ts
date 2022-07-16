@@ -2,6 +2,9 @@ import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException}
 import {CreatePedidoDto} from './dto/create-pedido.dto';
 import { Pedido } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error.util';
+import { Prisma } from '@prisma/client';
+import { Item } from 'src/items/entities/item.entity';
 
 @Injectable()
 export class PedidoService {
@@ -30,12 +33,36 @@ export class PedidoService {
 
     //Criar novo Pedido
     create(dto: CreatePedidoDto) {
-        //return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
+        const data: Prisma.PedidoCreateInput = {
+            user:{
+                connect:{
+                    id: dto.userId,
+                },
+            },
+            items:{
+                connect:dto.items.map((itemsId)=>({
+                    id: itemsId,
+                }))
+            }
+        }
+        //Retorna mostrando dados do Usuário e dados dos itens inseridos no pedido.
+        return this.prisma.pedido.create({
+            data,
+            select: {
+              id: true,
+              user: {
+                select: {
+                  name: true,
+                },
+              },
+              items: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          })
+          .catch(handleError);
     }
 
-    
-    handleError(error: Error): undefined{
-        console.log(error.message);
-        throw new UnprocessableEntityException(error.message);
-    }
 }
