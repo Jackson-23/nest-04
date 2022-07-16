@@ -1,21 +1,21 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
-import { TableService } from './item.service';
+import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Table } from './entities/table.entity';
-import { UpdateTableDto } from './dto/update-item.dto';
+import { Item } from './entities/item.entity';
+import { UpdateItemDto } from './dto/update-item.dto';
 
 @ApiTags('item')
 @Controller('item')
-export class TableController {
-    constructor(private tableService: TableService) {}
+export class ItemController {
+    constructor(private itemService: ItemService) {}
 
     @Get()
     @ApiOperation({
         summary: 'Lista todos os itens'
     })
-    findAll(): Promise<Table[]> {
-        return this.tableService.findAll();
+    findAll(): Promise<Item[]> {
+        return this.itemService.findAll();
     }
 
     @Get(':id')
@@ -23,15 +23,15 @@ export class TableController {
         summary: 'Item por ID'
     })
     findById(@Param('id') id: string){
-        return this.tableService.findById(id);
+        return this.itemService.findById(id);
     }
 
     @Post()
     @ApiOperation({
         summary: 'Cria um novo item'
     })
-    create(@Body() createTableDto: CreateItemDto): Promise<Table>{
-        return this.tableService.create(createTableDto);
+    create(@Body() createTableDto: CreateItemDto): Promise<Item>{
+        return this.itemService.create(createTableDto);
     }
 
     @Delete(':id')
@@ -39,14 +39,14 @@ export class TableController {
         summary: 'Deletar item'
     })
     delete(@Param(':id') id: string) {
-        return this.tableService.delete(id)
+        return this.itemService.delete(id)
     }
 
     @Patch(':id')
     @ApiOperation({
         summary: 'Atualizar Item'
     })
-    update(@Param(':id') id: string, @Body() dto: UpdateTableDto): Promise<Table>{
-        return this.tableService.update(id, dto)
+    update(@Param(':id') id: string, @Body() dto: UpdateItemDto): Promise<Item>{
+        return this.itemService.update(id, dto)
     }
 }

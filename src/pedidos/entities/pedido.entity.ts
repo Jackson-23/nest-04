@@ -1,7 +1,10 @@
-//import { Item } from "@prisma/client";
+import { Item } from "src/items/entities/item.entity";
+import { User } from "src/users/entities/user.entity"
 
 export class Pedido {
-    id: string;
-    //userId: string;
-    //items: Item;
+    id?: string
+    user?: User
+    itens?: Item[]
+    created_at?: Date
+    updated_at?: Date
 }

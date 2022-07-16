@@ -3,7 +3,6 @@ import { PedidoService } from './pedido.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Pedido } from './entities/pedido.entity';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @ApiTags('pedido')
 @Controller('pedido')
@@ -32,21 +31,5 @@ export class PedidoController {
     })
     create(@Body() dto: CreatePedidoDto)/*: Promise<Pedido>*/{
         return this.pedidoService.create(dto);
-    }
-
-    @Delete(':id')
-    @ApiOperation({
-        summary: 'Deletar pedido'
-    })
-    delete(@Param(':id') id: string) {
-        return this.pedidoService.delete(id)
-    }
-
-    @Patch(':id')
-    @ApiOperation({
-        summary: 'Atualizar pedido'
-    })
-    update(@Param(':id') id: string, @Body() dto: UpdatePedidoDto): Promise<Pedido>{
-        return this.pedidoService.update(id, dto)
     }
 }

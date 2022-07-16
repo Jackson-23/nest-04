@@ -1,24 +1,23 @@
 import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
 import {CreateItemDto} from './dto/create-item.dto';
-import { Table } from './entities/table.entity';
+import { Item } from './entities/item.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ApiOperation } from '@nestjs/swagger';
-import { UpdateTableDto } from './dto/update-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
 
 @Injectable()
-export class TableService {
+export class ItemService {
     
 
     constructor(private readonly prisma: PrismaService){}
 
     //Buscar todos os itens
-    findAll(): Promise<Table[]>{
-        return this.prisma.pedido.findMany();
+    findAll(): Promise<Item[]>{
+        return this.prisma.item.findMany();
     }
 
     //Busca Item por Id com tratamento de erro
-    async findByIdTry(id: string): Promise <Table>{
-        const record = await this.prisma.pedido.findUnique({ where: {id}});
+    async findByIdTry(id: string): Promise < Item >{
+        const record = await this.prisma.item.findUnique({ where: {id}});
         if(!record){
             throw new NotFoundException("Register " + id + " not found");
         }
@@ -32,21 +31,21 @@ export class TableService {
 
     //Criar novo Item
     create(dto: CreateItemDto) {
-        return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
+        return this.prisma.item.create({ data: dto }).catch(this.handleError);
     }
 
     //Deletar item por ID
     async delete(id: string) {
         await this.findByIdTry(id);
-        return this.prisma.pedido.delete({where: {id}});
+        return this.prisma.item.delete({where: {id}});
     }
 
     //Alterar dados de item por ID
-    async update(id: string, dto: UpdateTableDto) {
+    async update(id: string, dto: UpdateItemDto) {
         await this.findByIdTry(id);
 
-        //const data: Partial<Table> = {...dto}
-        return this.prisma.pedido.update({where: {id}, data: dto}).catch(this.handleError);
+        //const data: Partial<Item> = {...dto}
+        return this.prisma.item.update({where: {id}, data: dto}).catch(this.handleError);
     }
 
 

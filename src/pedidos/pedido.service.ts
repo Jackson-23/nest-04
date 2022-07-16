@@ -2,8 +2,6 @@ import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException}
 import {CreatePedidoDto} from './dto/create-pedido.dto';
 import { Pedido } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ApiOperation } from '@nestjs/swagger';
-import { UpdatePedidoDto } from './dto/update-pedido.dto';
 
 @Injectable()
 export class PedidoService {
@@ -35,22 +33,7 @@ export class PedidoService {
         //return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
     }
 
-    //Deletar Pedido por ID
-    async delete(id: string) {
-        await this.findByIdTry(id);
-        return this.prisma.pedido.delete({where: {id}});
-    }
-
-    //Alterar dados de Pedido por ID
-    async update(id: string, dto: UpdatePedidoDto) {
-        await this.findByIdTry(id);
-
-        //const data: Partial<Pedido> = {...dto}
-        return this.prisma.pedido.update({where: {id}, data: dto}).catch(this.handleError);
-    }
-
-
-
+    
     handleError(error: Error): undefined{
         console.log(error.message);
         throw new UnprocessableEntityException(error.message);
