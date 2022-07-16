@@ -1,7 +1,7 @@
-import { Item } from "@prisma/client";
+//import { Item } from "@prisma/client";
 
 export class Pedido {
-    id: String;
-    userId: String;
-    items: Item;
+    id: string;
+    //userId: string;
+    //items: Item;
 }

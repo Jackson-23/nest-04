@@ -32,7 +32,7 @@ export class PedidoService {
 
     //Criar novo Pedido
     create(dto: CreatePedidoDto) {
-        return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
+        //return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
     }
 
     //Deletar Pedido por ID

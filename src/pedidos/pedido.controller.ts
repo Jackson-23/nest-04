@@ -12,7 +12,7 @@ export class PedidoController {
 
     @Get()
     @ApiOperation({
-        summary: 'Lista todos os itens'
+        summary: 'Lista todos os pedidos'
     })
     findAll(): Promise<Pedido[]> {
         return this.pedidoService.findAll();
@@ -30,7 +30,7 @@ export class PedidoController {
     @ApiOperation({
         summary: 'Cria um novo pedido'
     })
-    create(@Body() dto: CreatePedidoDto): Promise<Pedido>{
+    create(@Body() dto: CreatePedidoDto)/*: Promise<Pedido>*/{
         return this.pedidoService.create(dto);
     }
 
