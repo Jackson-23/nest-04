@@ -15,8 +15,8 @@ export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({
-        description: 'e-mail para contato',
-        example: "example@example.com.br",
+        description: 'CPF do úsuário',
+        example: "000.000.000-00",
       })
       cpf: string;
 
@@ -24,8 +24,8 @@ export class CreateUserDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({
-        description: 'CPF do úsuário',
-        example: "000.000.000-00",
+        description: 'e-mail para contato',
+        example: "example@example.com.br",
       })
     email: string;
 
@@ -34,8 +34,18 @@ export class CreateUserDto {
     @IsNotEmpty()
     @ApiProperty({
         description: 'Senha de acesso',
+        example: 'MinhaSenha123#',
       })
     password: string;
+
+    //Confirm-Password**********
+    @IsString()
+    @IsNotEmpty()    
+    @ApiProperty({
+      description: 'Deve ser igual a senha sugerida',
+      example: 'MinhaSenha123#',
+    })
+    confirmPassword: string;
 
     //isAdmin*******
     @IsBoolean()

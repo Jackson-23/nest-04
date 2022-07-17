@@ -22,7 +22,7 @@ export class UserController {
     @ApiOperation({
         summary: 'Usuário por ID'
     })
-    findById(@Param('id') id: string){
+    findById(@Param('id') id: string): Promise<User>{
         return this.userService.findById(id);
     }
 
@@ -39,6 +39,7 @@ export class UserController {
         summary: 'Deletar Usuário'
     })
     delete(@Param(':id') id: string) {
+        //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+id);
         return this.userService.delete(id)
     }
 
