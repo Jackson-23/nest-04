@@ -32,7 +32,7 @@ export class ItemService {
 
     //Criar novo Item
     create(dto: CreateItemDto) {
-        return this.prisma.item.create({ data: dto }).catch(handleError);
+        //return this.prisma.item.create({ data: dto }).catch(handleError);***********************************
     }
 
     //Deletar item por ID

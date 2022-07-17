@@ -30,8 +30,8 @@ export class ItemController {
     @ApiOperation({
         summary: 'Cria um novo item'
     })
-    create(@Body() createTableDto: CreateItemDto): Promise<Item>{
-        return this.itemService.create(createTableDto);
+    create(@Body() createTableDto: CreateItemDto)/*: Promise<Item>*/{
+        //return this.itemService.create(createTableDto);
     }
 
     @Delete(':id')
