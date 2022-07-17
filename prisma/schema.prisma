@@ -13,7 +13,16 @@ datasource db {
 model Item {
   id String @id @default(uuid())
   name String
+  description String
+  imgUrl String
+  imdScore Int
   duration Int
+
+
+  //Relacionamento com Category
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String @map("category_id")
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -24,8 +33,10 @@ model Item {
 model User {
     id String @id @default(uuid())
     name String
+    cpf String @unique
     email String @unique
     password String
+    isAdmin Boolean
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
     
@@ -51,4 +62,19 @@ model Pedido {
   
 
   @@map("pedido")
+}
+
+
+model Category {
+  id String @id @default(uuid())
+
+  //Relacionamento com Item
+  itemsId Item[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  
+
+  @@map("category")
 }
