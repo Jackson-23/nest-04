@@ -9,7 +9,6 @@ import { LoginResponseDto } from './dto/login.response.dto';
 export default class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({

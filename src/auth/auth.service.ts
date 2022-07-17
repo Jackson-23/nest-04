@@ -33,7 +33,7 @@ export class AuthService {
     delete user.password;
 
     return {
-      token: this.jwtService.sign({email}),
+      token: this.jwtService.sign({ email }),
       user,
     };
   }

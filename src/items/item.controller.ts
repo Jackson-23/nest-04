@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -8,45 +16,45 @@ import { UpdateItemDto } from './dto/update-item.dto';
 @ApiTags('item')
 @Controller('item')
 export class ItemController {
-    constructor(private itemService: ItemService) {}
+  constructor(private itemService: ItemService) {}
 
-    @Get()
-    @ApiOperation({
-        summary: 'Lista todos os itens'
-    })
-    findAll(): Promise<Item[]> {
-        return this.itemService.findAll();
-    }
+  @Get()
+  @ApiOperation({
+    summary: 'Lista todos os itens',
+  })
+  findAll(): Promise<Item[]> {
+    return this.itemService.findAll();
+  }
 
-    @Get(':id')
-    @ApiOperation({
-        summary: 'Item por ID'
-    })
-    findById(@Param('id') id: string){
-        return this.itemService.findById(id);
-    }
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Item por ID',
+  })
+  findById(@Param('id') id: string) {
+    return this.itemService.findById(id);
+  }
 
-    @Post()
-    @ApiOperation({
-        summary: 'Cria um novo item'
-    })
-    create(@Body() createTableDto: CreateItemDto)/*: Promise<Item>*/{
-        //return this.itemService.create(createTableDto);
-    }
+  @Post()
+  @ApiOperation({
+    summary: 'Cria um novo item',
+  })
+  create(@Body() createTableDto: CreateItemDto) /*: Promise<Item>*/ {
+    //return this.itemService.create(createTableDto);
+  }
 
-    @Delete(':id')
-    @ApiOperation({
-        summary: 'Deletar item'
-    })
-    delete(@Param(':id') id: string) {
-        return this.itemService.delete(id)
-    }
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Deletar item',
+  })
+  delete(@Param(':id') id: string) {
+    return this.itemService.delete(id);
+  }
 
-    @Patch(':id')
-    @ApiOperation({
-        summary: 'Atualizar Item'
-    })
-    update(@Param(':id') id: string, @Body() dto: UpdateItemDto): Promise<Item>{
-        return this.itemService.update(id, dto)
-    }
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Atualizar Item',
+  })
+  update(@Param(':id') id: string, @Body() dto: UpdateItemDto): Promise<Item> {
+    return this.itemService.update(id, dto);
+  }
 }
