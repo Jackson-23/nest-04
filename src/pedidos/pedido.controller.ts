@@ -13,6 +13,8 @@ import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Pedido } from './entities/pedido.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { loggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @ApiTags('pedido')
 @UseGuards(AuthGuard())
@@ -41,7 +43,7 @@ export class PedidoController {
   @ApiOperation({
     summary: 'Cria um novo pedido',
   })
-  create(@Body() dto: CreatePedidoDto) /*: Promise<Pedido>*/ {
-    return this.pedidoService.create(dto);
+  create(@loggedUser() user:User, @Body() dto: CreatePedidoDto) /*: Promise<Pedido>*/ {
+    return this.pedidoService.create(user.id, dto);
   }
 }

@@ -65,11 +65,11 @@ export class PedidoService {
   }
 
   //Criar novo Pedido
-  create(dto: CreatePedidoDto) {
+  create(userId: string, dto: CreatePedidoDto) {
     const data: Prisma.PedidoCreateInput = {
       user: {
         connect: {
-          id: dto.userId,
+          id: userId,
         },
       },
       items: {

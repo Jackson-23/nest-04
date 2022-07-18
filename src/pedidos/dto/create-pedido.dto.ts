@@ -2,13 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreatePedidoDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'Id do usuário relacionado ao pedido',
-    example: '9e10135b-d9b2-4e0e-ba16-aeabee49771d',
-  })
-  userId: string;
 
   @IsUUID(undefined, { each: true })
   @ApiProperty({
