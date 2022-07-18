@@ -6,14 +6,18 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Item } from './entities/item.entity';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('item')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('item')
 export class ItemController {
   constructor(private itemService: ItemService) {}

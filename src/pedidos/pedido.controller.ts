@@ -6,13 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Pedido } from './entities/pedido.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('pedido')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('pedido')
 export class PedidoController {
   constructor(private pedidoService: PedidoService) {}
