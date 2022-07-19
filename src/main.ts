@@ -5,10 +5,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: {
+    /*cors: {
       origin: ['http://127.0.0.1:5500','http://127.0.0.1:3000']
-    },
-    //cors: true,
+    },*/
+    cors: true,
   });
 
   const port = process.env.PORT || 3535;
