@@ -1,58 +1,101 @@
-import {Get, Injectable, NotFoundException, Param, UnprocessableEntityException} from '@nestjs/common';
-import {CreateTableDto} from './dto/create-pedido.dto';
-import { Table } from './entities/table.entity';
+import {
+  Get,
+  Injectable,
+  NotFoundException,
+  Param,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import { CreatePedidoDto } from './dto/create-pedido.dto';
+import { Pedido } from './entities/pedido.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ApiOperation } from '@nestjs/swagger';
-import { UpdateTableDto } from './dto/update-pedido.dto';
+import { handleError } from 'src/utils/handle-error.util';
+import { Prisma } from '@prisma/client';
+import { Item } from 'src/items/entities/item.entity';
 
 @Injectable()
-export class TableService {
-    
+export class PedidoService {
+  constructor(private readonly prisma: PrismaService) {}
 
-    constructor(private readonly prisma: PrismaService){}
+  //Buscar todos os Pedidos
+  findAll() /*: Promise<Pedido[]>*/ {
+    return this.prisma.pedido.findMany({
+      select: {
+        id: true,
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        items: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+  }
 
-    //Buscar todos os itens
-    findAll(): Promise<Table[]>{
-        return this.prisma.pedido.findMany();
+  //Buscar Pedido por ID
+  findById(id: string) {
+    return this.findByIdTry(id);
+  }
+
+  //Busca Pedido por Id com tratamento de erro
+  async findByIdTry(id: string) /*: Promise <Pedido>*/ {
+    const record = await this.prisma.pedido.findUnique({
+      where: { id },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        items: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+    if (!record) {
+      throw new NotFoundException('Register ' + id + ' not found');
     }
+    return record;
+  }
 
-    //Busca Pedido por Id com tratamento de erro
-    async findByIdTry(id: string): Promise <Table>{
-        const record = await this.prisma.pedido.findUnique({ where: {id}});
-        if(!record){
-            throw new NotFoundException("Register " + id + " not found");
-        }
-        return record;
-    }
-
-    //Buscar Pedido por ID
-    findById(id: string){
-        return this.findByIdTry(id);
-    }
-
-    //Criar novo Pedido
-    create(dto: CreateTableDto) {
-        return this.prisma.pedido.create({ data: dto }).catch(this.handleError);
-    }
-
-    //Deletar Pedido por ID
-    async delete(id: string) {
-        await this.findByIdTry(id);
-        return this.prisma.pedido.delete({where: {id}});
-    }
-
-    //Alterar dados de Pedido por ID
-    async update(id: string, dto: UpdateTableDto) {
-        await this.findByIdTry(id);
-
-        //const data: Partial<Table> = {...dto}
-        return this.prisma.pedido.update({where: {id}, data: dto}).catch(this.handleError);
-    }
-
-
-
-    handleError(error: Error): undefined{
-        console.log(error.message);
-        throw new UnprocessableEntityException(error.message);
-    }
+  //Criar novo Pedido
+  create(userId: string, dto: CreatePedidoDto) {
+    const data: Prisma.PedidoCreateInput = {
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+      items: {
+        connect: dto.items.map((itemsId) => ({
+          id: itemsId,
+        })),
+      },
+    };
+    //Retorna mostrando dados do Usuário e dados dos itens inseridos no pedido.
+    return this.prisma.pedido
+      .create({
+        data,
+        select: {
+          id: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
+          items: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
+  }
 }

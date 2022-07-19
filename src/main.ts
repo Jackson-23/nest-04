@@ -13,7 +13,12 @@ async function bootstrap() {
     .setDescription('Not')
     .setVersion('1.0.0')
     .addTag('status')
-    .addTag('table')
+    .addTag('auth')
+    .addTag('user')
+    .addTag('pedido')
+    .addTag('item')
+    .addTag('category')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

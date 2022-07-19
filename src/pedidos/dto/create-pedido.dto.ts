@@ -1,20 +1,12 @@
-import { IsNotEmpty, IsNumber, IsPositive, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-export class CreateTableDto {
-    @IsString()
-    @IsNotEmpty()
-    @ApiProperty({
-        description: 'Nome do item',
-        example: "Filme, jogo, catalogo, afins",
-      })
-    name: string;
+export class CreatePedidoDto {
 
-    @IsNumber()
-    @IsPositive()
-    @ApiProperty({
-        description: 'Tempo de duração em minutos',
-        example: 180,
-      })
-    duration: number;
+  @IsUUID(undefined, { each: true })
+  @ApiProperty({
+    description: 'Id de cada Item ser colocado no pedido',
+    example: '38498855-23eb-41d0-812c-a9fd49ecf2ba',
+  })
+  items: string[];
 }

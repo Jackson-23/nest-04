@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ItemController } from './item.controller';
-import { ItemService } from './item.service';
+import { CategoryController } from './category.controller';
+import { CategoryService } from './category.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [PrismaModule,
     PassportModule.register({defaultStrategy: 'jwt'})],
-  controllers: [ItemController],
-  providers: [ItemService],
+  controllers: [CategoryController],
+  providers: [CategoryService],
 })
-export class ItemModule {}
+export class CategoryModule {}

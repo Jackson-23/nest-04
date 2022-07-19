@@ -1,52 +1,49 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
-import { TableService } from './pedido.service';
-import { CreateTableDto } from './dto/create-pedido.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Table } from './entities/table.entity';
-import { UpdateTableDto } from './dto/update-pedido.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { PedidoService } from './pedido.service';
+import { CreatePedidoDto } from './dto/create-pedido.dto';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Pedido } from './entities/pedido.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { loggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
-@ApiTags('table')
-@Controller('table')
-export class TableController {
-    constructor(private tableService: TableService) {}
+@ApiTags('pedido')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
+@Controller('pedido')
+export class PedidoController {
+  constructor(private pedidoService: PedidoService) {}
 
-    @Get()
-    @ApiOperation({
-        summary: 'Lista todos os itens'
-    })
-    findAll(): Promise<Table[]> {
-        return this.tableService.findAll();
-    }
+  @Get()
+  @ApiOperation({
+    summary: 'Lista todos os pedidos',
+  })
+  findAll() /*: Promise<Pedido[]>*/ {
+    return this.pedidoService.findAll();
+  }
 
-    @Get(':id')
-    @ApiOperation({
-        summary: 'pedido por ID'
-    })
-    findById(@Param('id') id: string){
-        return this.tableService.findById(id);
-    }
+  @Get(':id')
+  @ApiOperation({
+    summary: 'pedido por ID',
+  })
+  findById(@Param('id') id: string) {
+    return this.pedidoService.findById(id);
+  }
 
-    @Post()
-    @ApiOperation({
-        summary: 'Cria um novo pedido'
-    })
-    create(@Body() createTableDto: CreateTableDto): Promise<Table>{
-        return this.tableService.create(createTableDto);
-    }
-
-    @Delete(':id')
-    @ApiOperation({
-        summary: 'Deletar pedido'
-    })
-    delete(@Param(':id') id: string) {
-        return this.tableService.delete(id)
-    }
-
-    @Patch(':id')
-    @ApiOperation({
-        summary: 'Atualizar pedido'
-    })
-    update(@Param(':id') id: string, @Body() dto: UpdateTableDto): Promise<Table>{
-        return this.tableService.update(id, dto)
-    }
+  @Post()
+  @ApiOperation({
+    summary: 'Cria um novo pedido',
+  })
+  create(@loggedUser() user:User, @Body() dto: CreatePedidoDto) /*: Promise<Pedido>*/ {
+    return this.pedidoService.create(user.id, dto);
+  }
 }
