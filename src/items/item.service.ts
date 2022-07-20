@@ -47,8 +47,8 @@ export class ItemService {
   //Alterar dados de item por ID
   async update(id: string, dto: UpdateItemDto): Promise<Item | void> {
     await this.findByIdTry(id);
-    return this.prisma.item
+    /*return this.prisma.item
       .update({ where: { id }, data: dto })
-      .catch(handleError);
+      .catch(handleError);*/
   }
 }
