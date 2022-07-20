@@ -48,24 +48,24 @@ export class UserController {
     return this.userService.create(dto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiOperation({
     summary: 'Deletar Usuário',
   })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  delete(@Param(':id') id: string) {
-    //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+id);
+  delete(@Param('id') id: string) {
+    console.log("Estou no controller"+id);
     return this.userService.delete(id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiOperation({
     summary: 'Atualizar Usuário',
   })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  update(@Param(':id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
+  update(@Param('id') id: string, @Body() dto: UpdateUserDto): Promise<User> {
     return this.userService.update(id, dto);
   }
 }

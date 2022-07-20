@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Category } from 'src/category/entities/category.entity';
 
 export class CreateItemDto {
   //Name**********
@@ -20,6 +21,13 @@ export class CreateItemDto {
   })
   description: string;
 
+   //Description**********
+   @ApiProperty({
+     description: 'Categoria atribuída ao item',
+     example: 'Eletrônico, Móvel, Eletrodoméstico, Filme, Jogo etc...',
+   })
+   category: Category;
+
   //Duration**********
   @IsNumber()
   @IsPositive()
@@ -34,8 +42,7 @@ export class CreateItemDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Link da Imagem',
-    example:
-      'https://thumbs.dreamstime.com/b/texto-vermelho-do-selo-do-exemplo-43363006.jpg',
+    example: 'https://thumbs.dreamstime.com/b/texto-vermelho-do-selo-do-exemplo-43363006.jpg',
   })
   imgUrl: string;
 

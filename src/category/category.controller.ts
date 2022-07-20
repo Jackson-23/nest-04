@@ -46,20 +46,20 @@ export class CategoryController {
     return this.categoryService.create(createTableDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiOperation({
     summary: 'Deletar categoria',
   })
-  delete(@Param(':id') id: string) {
+  delete(@Param('id') id: string) {
     return this.categoryService.delete(id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiOperation({
     summary: 'Atualizar Categoria',
   })
   update(
-    @Param(':id') id: string,
+    @Param('id') id: string,
     @Body() dto: UpdateCategoryDto,
   ) /*: Promise<Category>*/ {
     return this.categoryService.update(id, dto);

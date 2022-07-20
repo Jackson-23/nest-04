@@ -72,7 +72,7 @@ export class UserService {
   async delete(id: string): Promise<User> {
     //await this.findByIdTry(id);
     //let id_cont = id;
-    //console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+id)
+    console.log("Estou no service" + id)
     return this.prisma.user.delete({
       where: { id },
       select: this.userSelect,

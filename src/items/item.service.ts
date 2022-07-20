@@ -1,15 +1,13 @@
 import {
-  Get,
   Injectable,
-  NotFoundException,
-  Param,
-  UnprocessableEntityException,
+  NotFoundException
 } from '@nestjs/common';
-import { CreateItemDto } from './dto/create-item.dto';
-import { Item } from './entities/item.entity';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UpdateItemDto } from './dto/update-item.dto';
 import { handleError } from 'src/utils/handle-error.util';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
+import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemService {
@@ -35,23 +33,27 @@ export class ItemService {
   }
 
   //Criar novo Item
-  create(dto: CreateItemDto) {
-    //return this.prisma.item.create({ data: dto }).catch(handleError);***********************************
+  async create(dto: CreateItemDto) {
+    return this.prisma.item.create({data: dto}).catch(handleError);
   }
 
   //Deletar item por ID
   async delete(id: string) {
+    console.log("AQUIII " + id);
     await this.findByIdTry(id);
     return this.prisma.item.delete({ where: { id } });
   }
 
   //Alterar dados de item por ID
-  async update(id: string, dto: UpdateItemDto) {
+  async update(id: string, dto: UpdateItemDto)/*: Promise<Item>*/ {
     await this.findByIdTry(id);
 
-    //const data: Partial<Item> = {...dto}
-    return this.prisma.item
-      .update({ where: { id }, data: dto })
-      .catch(handleError);
+    const data: Prisma.ItemUpdateInput = {
+
+    }
+
+    /*return this.prisma.item
+      .update({ where: { id }, data:dto })
+      .catch(handleError);*/
   }
 }
