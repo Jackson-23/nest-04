@@ -1,9 +1,9 @@
-import { Category } from 'src/category/entities/category.entity';
+import { Category } from "src/category/entities/category.entity";
 
 export class Item {
   id: string;
   name: string;
-  category?: Category;
+  category?: string;
   description?: string;
   imgUrl?: string;
   imdScore?: number;

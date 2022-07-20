@@ -20,6 +20,15 @@ export class CreateItemDto {
   })
   description: string;
 
+   //Description**********
+   @IsString()
+   @IsNotEmpty()
+   @ApiProperty({
+     description: 'Categoria atribuída ao item',
+     example: 'Eletrônico, Móvel, Eletrodoméstico, Filme, Jogo etc...',
+   })
+   category: string;
+
   //Duration**********
   @IsNumber()
   @IsPositive()
@@ -34,8 +43,7 @@ export class CreateItemDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Link da Imagem',
-    example:
-      'https://thumbs.dreamstime.com/b/texto-vermelho-do-selo-do-exemplo-43363006.jpg',
+    example: 'https://thumbs.dreamstime.com/b/texto-vermelho-do-selo-do-exemplo-43363006.jpg',
   })
   imgUrl: string;
 

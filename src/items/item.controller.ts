@@ -46,19 +46,19 @@ export class ItemController {
     //return this.itemService.create(createTableDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiOperation({
     summary: 'Deletar item',
   })
-  delete(@Param(':id') id: string) {
+  delete(@Param('id') id: string) {
     return this.itemService.delete(id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiOperation({
     summary: 'Atualizar Item',
   })
-  update(@Param(':id') id: string, @Body() dto: UpdateItemDto): Promise<Item> {
+  update(@Param('id') id: string, @Body() dto: UpdateItemDto): Promise<Item> {
     return this.itemService.update(id, dto);
   }
 }
