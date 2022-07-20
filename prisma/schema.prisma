@@ -20,8 +20,8 @@ model Item {
 
 
   //Relacionamento com Category
-  category Category @relation(fields: [categoryId], references: [id])
-  categoryId String @map("category_id")
+  //category Category? @relation(fields: [categoryId], references: [id])
+  //categoryId String? @map("category_id")
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -67,9 +67,10 @@ model Pedido {
 
 model Category {
   id String @id @default(uuid())
+  name String @unique
 
   //Relacionamento com Item
-  itemsId Item[]
+  //items Item[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

@@ -42,7 +42,7 @@ export class CategoryController {
   @ApiOperation({
     summary: 'Cria uma nova categoria',
   })
-  create(@Body() createTableDto: CreateCategoryDto) /*: Promise<Category>*/ {
+  create(@Body() createTableDto: CreateCategoryDto)/*: Promise<Category> */{
     return this.categoryService.create(createTableDto);
   }
 
@@ -61,7 +61,7 @@ export class CategoryController {
   update(
     @Param('id') id: string,
     @Body() dto: UpdateCategoryDto,
-  ) /*: Promise<Category>*/ {
+  ) /*: Promise<Category | void>*/ {
     return this.categoryService.update(id, dto);
   }
 }

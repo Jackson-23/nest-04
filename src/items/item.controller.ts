@@ -59,7 +59,7 @@ export class ItemController {
   @ApiOperation({
     summary: 'Atualizar Item',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateItemDto)/*: Promise<Item>*/ {
+  update(@Param('id') id: string, @Body() dto: UpdateItemDto): Promise<Item | void> {
     return this.itemService.update(id, dto);
   }
 }

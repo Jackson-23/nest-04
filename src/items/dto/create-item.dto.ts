@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Category } from 'src/category/entities/category.entity';
 
 export class CreateItemDto {
   //Name**********
@@ -22,11 +21,12 @@ export class CreateItemDto {
   description: string;
 
    //Description**********
+   @IsString()
    @ApiProperty({
      description: 'Categoria atribuída ao item',
      example: 'Eletrônico, Móvel, Eletrodoméstico, Filme, Jogo etc...',
    })
-   category: Category;
+   category: string;
 
   //Duration**********
   @IsNumber()

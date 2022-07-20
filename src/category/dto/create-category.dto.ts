@@ -10,4 +10,6 @@ export class CreateCategoryDto {
     example: 'Eletrônico',
   })
   name: string;
+
+  
 }

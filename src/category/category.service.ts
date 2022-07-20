@@ -29,7 +29,8 @@ export class CategoryService {
   }
 
   //Criar novo Item
-  create(dto: CreateCategoryDto) {
+  async create(dto: CreateCategoryDto)/*: Promise<Category>*/ {
+
     return this.prisma.category.create({ data: dto }).catch(handleError);
   }
 
@@ -40,7 +41,7 @@ export class CategoryService {
   }
 
   //Alterar dados de item por ID
-  async update(id: string, dto: UpdateCategoryDto) {
+  async update(id: string, dto: UpdateCategoryDto)/*: Promise<Category | void> */{
     await this.findByIdTry(id);
 
     //const data: Partial<Category> = {...dto}
