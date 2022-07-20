@@ -14,6 +14,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Item } from './entities/item.entity';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Category } from 'src/category/entities/category.entity';
 
 @ApiTags('item')
 @UseGuards(AuthGuard())
@@ -58,7 +59,7 @@ export class ItemController {
   @ApiOperation({
     summary: 'Atualizar Item',
   })
-  update(@Param('id') id: string, @Body() dto: UpdateItemDto): Promise<Item> {
+  update(@Param('id') id: string, @Body() dto: UpdateItemDto)/*: Promise<Item>*/ {
     return this.itemService.update(id, dto);
   }
 }

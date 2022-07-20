@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateItemDto } from './dto/create-item.dto';
@@ -44,12 +45,15 @@ export class ItemService {
   }
 
   //Alterar dados de item por ID
-  async update(id: string, data: UpdateItemDto) {
+  async update(id: string, dto: UpdateItemDto)/*: Promise<Item>*/ {
     await this.findByIdTry(id);
 
-    //const data: UpdateItemDto = {...dto}
+    const data: Prisma.ItemUpdateInput = {
+
+    }
+
     /*return this.prisma.item
-      .update({ where: { id }, data })
+      .update({ where: { id }, data:dto })
       .catch(handleError);*/
   }
 }
