@@ -36,3 +36,4 @@ $ npm run start:prod
 Nest is [MIT licensed](LICENSE).
 
 Vamos lá.
+Planejar
